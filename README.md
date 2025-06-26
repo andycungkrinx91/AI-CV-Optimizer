@@ -1,6 +1,7 @@
 # 🧠 AI CV Optimizer
 
 ![CV Optimizer UI](https://github.com/andycungkrinx91/AI-CV-Optimizer/blob/master/frontend/logo-github.png)
+[![Watch the demo](https://github.com/andycungkrinx91/AI-CV-Optimizer/blob/master/thumbnail.png)](https://drive.google.com/file/d/1KavzrGTsjs8uE90ydoQUK9ZDGzOias23/view?usp=sharing)
 
 **AI CV Optimizer** is a full-stack, AI-powered web application designed to help job seekers improve their CVs. Users can upload their CV, paste a job description, and get personalized feedback including:
 
