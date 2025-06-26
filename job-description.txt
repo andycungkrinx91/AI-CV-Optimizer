@@ -1,0 +1,27 @@
+# Dummy job-description for testing backend
+Job Title: Senior Python Developer
+
+Location: Jakarta, Indonesia (Remote Friendly)
+
+Company Description:
+We are a fast-growing financial technology (fintech) startup building next-generation payment solutions for the Indonesian market. Our mission is to make financial services more accessible and efficient. We are looking for a skilled Senior Python Developer to join our core engineering team and help build the backbone of our platform.
+
+Key Responsibilities:
+- Design, develop, and deploy high-quality, scalable, and reliable backend services using FastAPI.
+- Write clean, maintainable, and well-tested code.
+- Architect and implement database solutions using PostgreSQL and SQLAlchemy.
+- Collaborate with frontend developers, product managers, and other stakeholders to deliver new features.
+- Optimize applications for maximum speed and scalability.
+- Participate in code reviews to maintain high standards of code quality.
+- Mentor junior developers and contribute to a culture of technical excellence.
+- Build and maintain CI/CD pipelines for automated testing and deployment.
+
+Qualifications & Skills:
+- 5+ years of professional software development experience with Python.
+- In-depth knowledge of modern Python frameworks, particularly FastAPI or Django.
+- Strong experience with relational databases (e.g., PostgreSQL, MySQL) and ORMs.
+- Experience with building and consuming RESTful APIs.
+- Familiarity with containerization technologies like Docker.
+- Proficient with Git and version control workflows.
+- Experience with cloud platforms (GCP, AWS, or Azure) is a plus.
+- A proactive and collaborative mindset with strong problem-solving skills.

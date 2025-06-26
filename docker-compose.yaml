@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/code/app
+    env_file:
+      - .env
+    container_name: ai-cv-optimizer-backend
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    container_name: ai-cv-optimizer-frontend
