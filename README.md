@@ -107,8 +107,8 @@ BACKEND_API_URL="http://backend:8000/api/review"
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/andycungkrinx91/AI-CV-Optimizer.git
+cd AI-CV-Optimizer
 
 # 2. Create .env file (see above)
 
