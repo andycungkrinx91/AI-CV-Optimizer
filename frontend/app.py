@@ -220,12 +220,21 @@ if st.session_state.analysis_result:
     st.divider()
 
     # --- Display Detailed Feedback in Tabs ---
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab_definitions = [
         "✅ **Corrections & Rewrites**",
         "🚀 **Optimization Suggestions**",
         "📄 **ATS Review**",
         "🎯 **Suggested Roles**"
-    ])
+    ]
+
+    tabs = st.tabs(tab_definitions)
+
+    # Assign tabs by index for flexibility
+    tab1 = tabs[0]
+    tab2 = tabs[1]
+    tab3 = tabs[2]
+    tab4 = tabs[3]
+
     with tab1:
         st.subheader("Optimized Professional Summary")
         st.info(result.get('corrected_cv_summary', 'Not available.'))

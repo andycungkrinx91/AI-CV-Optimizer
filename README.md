@@ -167,9 +167,3 @@ curl -X POST "http://localhost:8000/api/review" \
 
 Built with ❤️ by **Gem Custom**
 
----
-
-## 🧠 Bonus Ideas
-
-- Integrate LinkedIn scraping 🧲
-- Score comparison over time 📊

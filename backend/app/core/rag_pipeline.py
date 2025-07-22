@@ -100,7 +100,6 @@ def process_cv_and_review(cv_content: bytes, job_description: str):
         print("[3/5] FAISS context retrieved.")
 
         # --- 4. Create Hybrid Prompt and Chain ---
-        # This prompt uses both the retrieved context (for speed) and the full context (for quality)
         print("[4/5] Creating hybrid prompt...")
         format_instructions = output_parser.get_format_instructions()
         
@@ -122,18 +121,18 @@ def process_cv_and_review(cv_content: bytes, job_description: str):
             5.  **Choose a Relevant Emoji**: Provide a single, relevant `persona_emoji` that visually represents their core skill(s) in the context of the character.
 
             **High-Quality Examples:**
-            - **Example 1 (Indonesian - Wayang Inspired):**
+            - **Example 1 (Indonesian - Wayang Inspired - Unique dynamic persona_name, persona_emoji, persona_description):**
               - CV shows skills in reliability, security, and system stability.
               - `persona_name`: "Gatotkaca Penjaga Kode"
               - `persona_description`: "Seperti Gatotkaca dengan otot kawat dan tulang besi, Anda adalah penjaga tangguh yang memastikan keandalan dan keamanan sistem, melindungi dari bug dan ancaman."
               - `persona_emoji`: "🛡️"
-            - **Example 2 (English - Superhero Inspired):**
+            - **Example 2 (English - Superhero Inspired - Unique dynamic persona_name, persona_emoji, persona_description):**
               - CV shows skills in system design, building complex features, and using many tools.
               - `persona_name`: "The 'Iron Man' of Software Architecture"
               - `persona_description`: "Like Tony Stark building his suits, you architect and construct complex, high-tech solutions from the ground up, mastering every tool at your disposal."
               - `persona_emoji`: "🤖"
 
-            Your task is to generate the `persona_name`, `persona_description`, and `persona_emoji` fields in the final JSON.
+            Your task is to generate the `persona_name`, `persona_description`, and `persona_emoji` fields in the final JSON with Unique dynamic result.
 
             **DETAILED INSTRUCTIONS:**
             -   **`match_score`, `ats_score`**: Calculate these scores based on a holistic review, using the `RETRIEVED CV SECTIONS` for a quick keyword-based assessment and the `FULL CV TEXT` for a deeper, contextual understanding.
@@ -184,7 +183,6 @@ def process_cv_and_review(cv_content: bytes, job_description: str):
             "full_cv_text": full_cv_text
         })
         print("[5/5] Correction complete.")
-
         return response_data
 
     except Exception as e:

@@ -1,8 +1,8 @@
 # backend/app/api/review.py
 
-from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends # <-- Add Depends
+from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from ..core import rag_pipeline
-from ..core.security import verify_token # <-- Import our new security function
+from ..core.security import verify_token
 from typing import Dict, Any
 
 router = APIRouter()
@@ -10,7 +10,6 @@ router = APIRouter()
 @router.post(
     "/review",
     response_model=Dict[str, Any],
-    # --- ADD THIS LINE TO PROTECT THE ENDPOINT ---
     dependencies=[Depends(verify_token)]
 )
 async def review_cv(
