@@ -1,14 +1,14 @@
 # 🧠 AI CV Optimizer
 
-![CV Optimizer UI](https://github.com/andycungkrinx91/AI-CV-Optimizer/blob/master/frontend/logo-github.png)
-[![Watch the demo](https://github.com/andycungkrinx91/AI-CV-Optimizer/blob/master/thumbnail.png)](https://drive.google.com/file/d/1KavzrGTsjs8uE90ydoQUK9ZDGzOias23/view?usp=sharing)
+![CV Optimizer UI](https://raw.githubusercontent.com/andycungkrinx91/AI-CV-Optimizer/master/frontend/logo-github.png)
+[![Watch the demo](https://raw.githubusercontent.com/andycungkrinx91/AI-CV-Optimizer/master/thumbnail.png)](https://drive.google.com/file/d/1KavzrGTsjs8uE90ydoQUK9ZDGzOias23/view?usp=sharing)
 
 **AI CV Optimizer** is a full-stack, AI-powered web application designed to help job seekers improve their CVs. Users can upload their CV, paste a job description, and get personalized feedback including:
 
-- ✅ Match Score
-- 🧠 Personality Insights
-- ✍️ Rewrite Suggestions
-- 📋 Actionable Feedback
+- ✅ **Comprehensive Scores**: CV Match, ATS Friendliness, and Target Role Fit.
+- 🦸 **Your Coder Persona**: A dynamic, creative analysis of your work style based on Superhero or Wayang archetypes (e.g., "Gatotkaca Penjaga Kode").
+- ✍️ **AI-Powered Rewrites**: Optimized summaries and experience sections.
+- 🚀 **Actionable Suggestions**: Concrete steps to improve your CV and a list of alternative job roles you're suited for.
 
 All tailored specifically to the target job role.
 
@@ -51,7 +51,7 @@ All tailored specifically to the target job role.
     - Constructs hybrid prompt (top CV chunks + full CV).
 5. 🤖 **AI Generation**: Gemini returns structured insights.
 6. 📦 **Response**: FastAPI sends JSON to frontend.
-7. 🧾 **Display**: Streamlit shows match score, suggestions, and personality fit.
+7. 🧾 **Display**: Streamlit shows scores, a dynamic Coder Persona, rewrite suggestions, and a list of suggested job roles.
 
 ---
 
@@ -90,7 +90,7 @@ Create a `.env` file in the project root with the following content:
 
 ```env
 GOOGLE_API_KEY=<your_google_ai_api_key>
-GOOGLE_MODEL_NAME=gemini-2.5-flash
+GOOGLE_MODEL_NAME=gemini-1.5-flash
 LLM_TEMPERATURE=0.8
 LLM_MAX_TOKENS=8192
 API_AUTH_TOKEN="<your_api_auth_token>" # You can generate random from this https://generate-random.org/api-key-generator
@@ -132,10 +132,10 @@ You can test the API with the following `curl` command:
 ```bash
 curl -X POST "http://localhost:8000/api/review" \
   -H "accept: application/json" \
-  -H "Authorization: Bearer YOUR_SUPER_SECRET_AND_LONG_RANDOM_STRING_HERE" \
+  -H "Authorization: Bearer <your_api_auth_token>" \
   -H "Content-Type: multipart/form-data" \
-  -F "cv_file=@john_doe_devops_cv.pdf" \
-  -F "job_description=<job-description.txt"
+  -F "cv_file=@/path/to/your/cv.pdf" \
+  -F "job_description=@job-description.txt"
 ```
 
 ---

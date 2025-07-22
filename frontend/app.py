@@ -178,19 +178,54 @@ if st.session_state.analysis_result:
     result = st.session_state.analysis_result
     st.success("Analysis Complete!", icon="🎉")
 
-    col1, col2 = st.columns([1, 2])
-    with col1:
+    # --- Display Scores ---
+    score_col1, score_col2, score_col3 = st.columns(3)
+    with score_col1:
         st.metric(
             label="**CV Match Score**",
             value=f"{result.get('match_score', 0)}%"
         )
-    with col2:
-        st.subheader("Personality Insights")
-        st.markdown(f"> _{result.get('personality_analysis', 'N/A')}_")
+    with score_col2:
+        st.metric(
+            label="**ATS Friendliness**",
+            value=f"{result.get('ats_score', 0)}%"
+        )
+    with score_col3:
+        # The main job role fit score is the first one in the suggested list
+        suggested_roles = result.get('suggested_job_roles', [])
+        main_role_score = 0
+        if suggested_roles and isinstance(suggested_roles, list) and len(suggested_roles) > 0:
+            main_role_score = suggested_roles[0].get('score', 0)
+        st.metric(
+            label="**Target Role Fit**",
+            value=f"{main_role_score}%"
+        )
+
+    # --- Display Persona ---
+    persona_name = result.get('persona_name')
+    persona_description = result.get('persona_description')
+    persona_emoji = result.get('persona_emoji')
+
+    if persona_name and persona_description and persona_emoji:
+        st.subheader("Your Persona Overview")
+
+        # Use columns for a nice layout: image on the left, text on the right
+        col1, col2 = st.columns([1, 4], gap="medium")
+        with col1:
+            st.markdown(f"<p style='font-size: 96px; text-align: center;'>{persona_emoji}</p>", unsafe_allow_html=True)
+        with col2:
+            st.markdown(f"### {persona_name}")
+            st.markdown(f"> {persona_description}")
 
     st.divider()
 
-    tab1, tab2 = st.tabs(["✅ **Corrections & Rewrites**", "🚀 **Optimization Suggestions**"])
+    # --- Display Detailed Feedback in Tabs ---
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "✅ **Corrections & Rewrites**",
+        "🚀 **Optimization Suggestions**",
+        "📄 **ATS Review**",
+        "🎯 **Suggested Roles**"
+    ])
     with tab1:
         st.subheader("Optimized Professional Summary")
         st.info(result.get('corrected_cv_summary', 'Not available.'))
@@ -203,6 +238,26 @@ if st.session_state.analysis_result:
         suggestions = result.get('optimization_suggestions', [])
         for suggestion in suggestions:
             st.markdown(f"- {suggestion}")
+    with tab3:
+        st.subheader("ATS Friendliness Review")
+        suggestions = result.get('ats_suggestions', [])
+        for suggestion in suggestions:
+            st.markdown(f"- {suggestion}")
+    with tab4:
+        st.subheader("Suggested Job Roles For You")
+        role_suggestions = result.get('suggested_job_roles', [])
+        if role_suggestions and isinstance(role_suggestions, list):
+            for i, role_info in enumerate(role_suggestions):
+                role_name = role_info.get('role', 'N/A')
+                role_score = role_info.get('score', 0)
+                if i == 0:
+                    st.markdown(f"**{role_name}** (Your Target Role)")
+                else:
+                    st.markdown(f"**{role_name}**")
+                st.progress(role_score, text=f"{role_score}% Match")
+                st.write("") # Add a little vertical space
+        else:
+            st.info("No job role suggestions could be generated at this time.")
 
 # --- THIS IS THE UPDATED FOOTER ---
 st.markdown("---")
