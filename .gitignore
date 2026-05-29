@@ -28,4 +28,5 @@ build/
 
 # Test artifacts
 .pytest_cache/
-.devcontainer/
+.devcontainer
+.antigravitycli
