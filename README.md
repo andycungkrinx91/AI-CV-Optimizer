@@ -1,169 +1,174 @@
-# 🧠 AI CV Optimizer
+# AI CV Optimizer
 
-![CV Optimizer UI](https://raw.githubusercontent.com/andycungkrinx91/AI-CV-Optimizer/master/frontend/logo-github.png)
-[![Watch the demo](https://raw.githubusercontent.com/andycungkrinx91/AI-CV-Optimizer/master/screenshot.png)](https://drive.google.com/file/d/1KavzrGTsjs8uE90ydoQUK9ZDGzOias23/view?usp=sharing)
+> AI-powered CV analysis for better match scores, cleaner writing, and stronger ATS results — with an electric lightning UI.
 
-**AI CV Optimizer** is a full-stack, AI-powered web application designed to help job seekers improve their CVs. Users can upload their CV, paste a job description, and get personalized feedback including:
+![SvelteKit](https://img.shields.io/badge/SvelteKit-ff3e00?logo=svelte&logoColor=white)
+![Svelte 5](https://img.shields.io/badge/Svelte_5-ff3e00?logo=svelte&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-4e4e4e?logo=pnpm&logoColor=f69220)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
 
-- ✅ **Comprehensive Scores**: CV Match, ATS Friendliness, and Target Role Fit.
-- 🦸 **Your Coder Persona**: A dynamic, creative analysis of your work style based on Superhero or Wayang archetypes (e.g., "Gatotkaca Penjaga Kode").
-- ✍️ **AI-Powered Rewrites**: Optimized summaries and experience sections.
-- 🚀 **Actionable Suggestions**: Concrete steps to improve your CV and a list of alternative job roles you're suited for.
+## What it does
 
-All tailored specifically to the target job role.
+- 📊 Animated SVG score gauges — CV Match, ATS Score, Role Fit
+- 🧠 Persona analysis with creative character-style name, emoji & description
+- ✍️ AI rewrite suggestions for professional summary and experience sections
+- ⚠️ ATS feedback and missing keyword hints
+- 🎯 Suggested roles with match score bars
+- ⚡ Continuous canvas-based electric lightning background animation
+- 🌑 Dark-first design (defaults to dark/electric mode)
+- 📱 Fully responsive — works from 320 px up
 
----
+## Tech Stack
 
-## 📚 Table of Contents
+| Layer | Tech |
+|-------|------|
+| Framework | ✨ SvelteKit 2 + Svelte 5 (runes: `$state`, `$derived`, `$effect`, `$props`) |
+| Styling | 🎨 Vanilla CSS + design tokens — **no Tailwind** |
+| UI Effect | ⚡ Canvas lightning engine (`Lightning.svelte`) — recursive midpoint-displacement, spark particles, ambient aurora |
+| Logo | 🎨 SVG logo (`static/logo.svg`) — document + lightning bolt, cyan-to-violet gradient |
+| PDF parsing | 📄 `pdf-parse` (server-side, Node.js) |
+| AI providers | 🤖 Gemini / OpenAI-compatible / Cloudflare Workers AI |
+| Package manager | 📦 pnpm |
+| Production | 🚀 `@sveltejs/adapter-node` |
 
-- [🧰 Technology Stack](#-technology-stack)
-- [🔁 System Flow](#-system-flow)
-- [📁 Project Structure](#-project-structure)
-- [⚙️ Configuration (.env)](#-configuration-env)
-- [🚀 Running the Project](#-running-the-project)
-- [🧪 Testing the Backend](#-testing-the-backend)
-- [🔑 Getting a Google AI API Key](#-getting-a-google-ai-api-key)
-- [📈 Google AI Models & Rate Limits](#-google-ai-models--rate-limits)
+## Quick start
 
----
+```bash
+# 1 — install
+pnpm install
 
-## 🧰 Technology Stack
+# 2 — configure (see provider options below)
+cp .env.example .env
+# edit .env with your chosen AI provider credentials
 
-| Component     | Technology                                                                 | Purpose                                                                                           |
-|--------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| **Frontend**  | [Streamlit](https://streamlit.io/)                                          | Beautiful and interactive Python-based UI                                                         |
-| **Backend**   | [FastAPI](https://fastapi.tiangolo.com/)                                    | High-performance REST API                                                                         |
-| **AI Logic**  | [LangChain](https://www.langchain.com/)                                     | RAG-based pipeline to optimize prompts and inference                                              |
-| **AI Model**  | [Google Gemini](https://ai.google.dev/)                                     | LLM used for analysis, correction, and generation                                                 |
-| **Vector DB** | [FAISS](https://faiss.ai/)                                                  | Efficient similarity search for relevant CV context                                               |
-| **Container** | [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/) | Isolated, reproducible full-stack development setup                                     |
-
----
-
-## 🔁 System Flow
-
-1. 📤 **Upload CV**: User uploads PDF CV and pastes a job description.
-2. 📡 **API Request**: Streamlit sends the data to FastAPI.
-3. 🔒 **Authentication**: Token validated on backend.
-4. ⚙️ **AI Pipeline**:
-    - Extracts text from PDF.
-    - Generates embeddings with Gemini + FAISS.
-    - Constructs hybrid prompt (top CV chunks + full CV).
-5. 🤖 **AI Generation**: Gemini returns structured insights.
-6. 📦 **Response**: FastAPI sends JSON to frontend.
-7. 🧾 **Display**: Streamlit shows scores, a dynamic Coder Persona, rewrite suggestions, and a list of suggested job roles.
-
----
-
-## 📁 Project Structure
-
-```
-cv-optimizer-app/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py
-│   │   ├── api/
-│   │   │   └── review.py
-│   │   └── core/
-│   │       ├── config.py
-│   │       ├── rag_pipeline.py
-│   │       └── security.py
-│   ├── Dockerfile
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── app.py
-│   ├── Dockerfile
-│   ├── logo.png
-│   └── requirements.txt
-│
-├── .env
-└── docker-compose.yml
+# 3 — run
+pnpm dev        # → http://localhost:5173
 ```
 
----
+## Choose one AI provider
 
-## ⚙️ Configuration (.env)
+Edit `.env` — only fill in the section for the provider you want.
 
-Create a `.env` file in the project root with the following content:
+### Gemini (recommended)
+```env
+AI_PROVIDER=gemini
+GOOGLE_API_KEY=paste_your_google_ai_api_key_here
+GOOGLE_MODEL_NAME=gemini-2.5-flash
+```
+
+### OpenAI-compatible (Ollama / LM Studio / OpenAI / Groq)
+```env
+AI_PROVIDER=openai
+OPENAI_BASE_URL=http://localhost:11434/v1
+OPENAI_API_KEY=ollama
+OPENAI_MODEL_NAME=llama3.1
+```
+
+### Cloudflare Workers AI (free tier)
+```env
+AI_PROVIDER=cloudflare
+CF_ACCOUNT_ID=your_account_id_here
+CF_API_TOKEN=your_api_token_here
+# Valid model names:
+CF_MODEL_NAME=@cf/meta/llama-3.1-8b-instruct     # fast, free tier
+# CF_MODEL_NAME=@cf/meta/llama-3.1-70b-instruct  # best quality
+# CF_MODEL_NAME=@cf/google/gemma-7b-it            # Google's Gemma
+```
+
+> [!IMPORTANT]
+> The model `@cf/google/gemma-4-26b-a4b-it` is **NOT** a valid Cloudflare model and will cause errors.
+> Use one of the models listed above.
+
+## General settings (optional)
 
 ```env
-GOOGLE_API_KEY=<your_google_ai_api_key>
-GOOGLE_MODEL_NAME=gemini-1.5-flash
 LLM_TEMPERATURE=0.8
 LLM_MAX_TOKENS=8192
-API_AUTH_TOKEN="<your_api_auth_token>" # You can generate random from this https://generate-random.org/api-key-generator
-BACKEND_API_URL="http://backend:8000/api/review"
 ```
 
----
+## Commands
 
-## 🚀 Running the Project
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start dev server → http://localhost:5173 |
+| `pnpm check` / `pnpm lint` | Svelte + TypeScript type checking |
+| `pnpm build` | Production build (outputs to `build/`) |
+| `pnpm start` | Run production server after build (loads `.env`) |
 
-### ✅ Prerequisites
-- Docker & Docker Compose installed.
-
-### ▶️ Steps
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/andycungkrinx91/AI-CV-Optimizer.git
-cd AI-CV-Optimizer
-
-# 2. Create .env file (see above)
-
-# 3. Build and run the app
-docker compose up --build
-```
-
-Once running, open your browser at:
+## Project structure
 
 ```
-http://localhost:5000
+src/
+├── app.html                        # HTML shell — dark-mode flash prevention, SVG favicon
+├── app.css                         # Global tokens, utilities, electric lightning CSS
+├── routes/
+│   ├── +layout.svelte              # Lightning canvas + Header + Footer wrapper
+│   ├── +page.svelte                # Main page — upload form + results
+│   └── api/analyze/+server.ts      # POST /api/analyze — always returns JSON
+└── lib/
+    ├── components/
+    │   ├── Lightning.svelte         # ⚡ Canvas lightning engine (continuous, crash-safe)
+    │   ├── Header.svelte            # Logo + gradient title + ThemeToggle
+    │   ├── ThemeToggle.svelte       # Sun/moon button
+    │   ├── UploadForm.svelte        # Drag-drop PDF + job description textarea
+    │   ├── ScoreBoard.svelte        # 3 animated score gauges
+    │   ├── ScoreGauge.svelte        # SVG arc gauge with count-up animation
+    │   ├── PersonaCard.svelte       # Persona name, emoji, aurora background
+    │   ├── ResultTabs.svelte        # 4-tab panel (div[role=tablist], not nav)
+    │   ├── TabCorrections.svelte    # AI-rewritten summary + experience
+    │   ├── TabSuggestions.svelte    # Numbered strategic suggestions
+    │   ├── TabATS.svelte            # ATS warning items
+    │   ├── TabRoles.svelte          # Suggested roles with score bars
+    │   ├── SkeletonLoader.svelte    # Shimmer skeleton during AI processing
+    │   └── Footer.svelte            # Copyright + LinkedIn link
+    ├── server/
+    │   ├── prompt.ts               # Shared AI prompt + JSON schema
+    │   ├── pdf.ts                  # PDF text extraction
+    │   └── providers/
+    │       ├── base.ts             # AIProvider interface + parseAnalysisJSON
+    │       ├── index.ts            # Factory: reads AI_PROVIDER env → creates provider
+    │       ├── gemini.ts           # Google Gemini
+    │       ├── openai.ts           # OpenAI-compatible (Ollama, LM Studio, Groq…)
+    │       └── cloudflare.ts       # Cloudflare Workers AI (safe JSON parse)
+    ├── stores/theme.ts             # Dark/light mode store
+    ├── types/analysis.ts           # AnalysisResult, ProviderType types
+    └── utils/clipboard.ts          # copyToClipboard helper
+static/
+├── logo.svg                        # ⚡ SVG logo — document + lightning bolt icon
+└── logo.png                        # Fallback PNG logo
 ```
 
----
+## API contract
 
-## 🧪 Testing the Backend
+`POST /api/analyze` — `multipart/form-data`
 
-You can test the API with the following `curl` command:
+| Field | Type | Description |
+|-------|------|-------------|
+| `cv_file` | PDF file ≤10 MB | Candidate CV |
+| `job_description` | string | Target job description |
 
-```bash
-curl -X POST "http://localhost:8000/api/review" \
-  -H "accept: application/json" \
-  -H "Authorization: Bearer <your_api_auth_token>" \
-  -H "Content-Type: multipart/form-data" \
-  -F "cv_file=@/path/to/your/cv.pdf" \
-  -F "job_description=@job-description.txt"
+**Always returns JSON** — even on error:
+```json
+// success
+{ "match_score": 82, "ats_score": 74, ... }
+
+// error
+{ "error": true, "message": "Descriptive error message" }
 ```
 
----
+## Known good Cloudflare models
 
-## 🔑 Getting a Google AI API Key
+| Model | Speed | Quality |
+|-------|-------|---------|
+| `@cf/meta/llama-3.1-8b-instruct` | ⚡ Fast | Good |
+| `@cf/meta/llama-3.1-70b-instruct` | 🐢 Slow | Best |
+| `@cf/mistral/mistral-7b-instruct-v0.2` | ⚡ Fast | Good |
+| `@cf/google/gemma-7b-it` | ⚡ Fast | Good |
 
-1. Go to [Google AI Studio](https://makersuite.google.com/app).
-2. Click **Get API Key**.
-3. Create a new project → Copy the API key.
-4. Paste it into your `.env` file as `GOOGLE_API_KEY`.
+## Maintenance notes
 
----
-
-## 📈 Google AI Models & Rate Limits
-
-| Model Name             | Use Case                   | Notes                                   |
-|------------------------|----------------------------|-----------------------------------------|
-| `gemini-1.5-flash`     | Recommended, fast & cheap  | Ideal for real-time interaction         |
-| `gemini-1.5-pro`       | Deep reasoning tasks        | Slower and more expensive               |
-| `models/embedding-001`| Embedding CV/job text      | Used for FAISS vector search            |
-
-### ⚠️ Rate Limits (Free Tier)
-- **60 requests/minute**
-- You’ll receive HTTP `429` if exceeded.
-
----
-
-## 💎 Credits
-
-Built with ❤️ by **Gem Custom**
-
+- Keep `.env.example` in sync with `.env`
+- `Lightning.svelte` loop is wrapped in `try/catch` — errors never kill the animation
+- API route (`+server.ts`) uses `return json()` for ALL responses — never `throw error()` (which generates HTML)
+- `ResultTabs.svelte` uses `<div role="tablist">` not `<nav role="tablist">` (a11y rule)
