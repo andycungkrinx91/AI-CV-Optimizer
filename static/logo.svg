@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <!-- Main gradient: cyan → violet -->
+    <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#00d4ff"/>
+      <stop offset="55%"  stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <!-- Lightning bolt fill gradient -->
+    <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.85"/>
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+
+    <!-- Inner glow for bolt -->
+    <filter id="boltGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0
+                0.8 0 0 0 0.85
+                1 0 0 0 1
+                0 0 0 0.6 0"/>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+
+    <!-- Background glow -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#1a0a3e" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#03010c" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <rect width="64" height="64" rx="18" fill="url(#bgGrad)"/>
+
+  <!-- Outer ring glow -->
+  <rect width="64" height="64" rx="18" fill="none"
+    stroke="url(#lg1)" stroke-width="1.5" stroke-opacity="0.6"/>
+
+  <!-- Document shape (background) -->
+  <path d="M18 12 L40 12 L50 22 L50 52 L14 52 L14 12 Z"
+    fill="#0f0825" stroke="url(#lg1)" stroke-width="1" stroke-opacity="0.35"/>
+
+  <!-- Document fold corner -->
+  <path d="M40 12 L40 22 L50 22" fill="none" stroke="url(#lg1)" stroke-width="1" stroke-opacity="0.4"/>
+
+  <!-- Document lines (hinting at text) -->
+  <line x1="20" y1="30" x2="34" y2="30" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.25" stroke-linecap="round"/>
+  <line x1="20" y1="35" x2="36" y2="35" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.2"  stroke-linecap="round"/>
+  <line x1="20" y1="40" x2="30" y2="40" stroke="#00d4ff" stroke-width="1.2" stroke-opacity="0.18" stroke-linecap="round"/>
+
+  <!-- Outer glow of the lightning bolt -->
+  <path d="M37 10 L24 30 L32 30 L26 54 L45 27 L35 27 Z"
+    fill="#00d4ff" filter="url(#boltGlow)" opacity="0.5"/>
+
+  <!-- Lightning bolt — main shape -->
+  <path d="M37 10 L24 30 L32 30 L26 54 L45 27 L35 27 Z"
+    fill="url(#lg1)" filter="url(#glow)"/>
+
+  <!-- Lightning bolt — bright inner highlight -->
+  <path d="M35 14 L26 29.5 L33 29.5 L28.5 48 L42.5 28 L33.5 28 Z"
+    fill="url(#lg2)" opacity="0.55"/>
+
+  <!-- Spark dots at bolt tip (top) -->
+  <circle cx="37" cy="8"  r="1.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="41" cy="7"  r="0.8" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="33" cy="7"  r="0.6" fill="#00d4ff" opacity="0.6"/>
+  <circle cx="40" cy="11" r="0.5" fill="#ffffff"  opacity="0.5"/>
+
+  <!-- Spark dots at bolt bottom -->
+  <circle cx="26" cy="56" r="1.2" fill="#00d4ff" opacity="0.8"/>
+  <circle cx="23" cy="57" r="0.7" fill="#7c3aed" opacity="0.7"/>
+  <circle cx="29" cy="57" r="0.5" fill="#ffffff"  opacity="0.6"/>
+
+  <!-- Inner accent line on bolt -->
+  <line x1="34" y1="16" x2="27" y2="29" stroke="white" stroke-width="0.8" stroke-opacity="0.4" stroke-linecap="round"/>
+  <line x1="29" y1="32" x2="26" y2="48" stroke="white" stroke-width="0.8" stroke-opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Top-right circuit dots (AI motif) -->
+  <circle cx="53" cy="14" r="2" fill="none" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.5"/>
+  <circle cx="53" cy="14" r="0.8" fill="#00d4ff" opacity="0.7"/>
+  <line x1="51" y1="14" x2="48" y2="14" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.35" stroke-linecap="round"/>
+  <line x1="53" y1="12" x2="53" y2="10" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.35" stroke-linecap="round"/>
+</svg>
